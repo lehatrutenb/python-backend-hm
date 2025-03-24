@@ -1,0 +1,10 @@
+FROM python:3.9-alpine
+
+WORKDIR /app
+RUN apk add make gcc musl-dev
+COPY requirements.txt .
+RUN pip install -r requirements.txt
+
+COPY . .
+RUN mv .env_compose .env_dev
+CMD ["make", "runServerWithMigrate"]
